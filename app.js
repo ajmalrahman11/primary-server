@@ -1,19 +1,20 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 // const { mongoose } = require("./helpers/connection");
 
-var indexRouter = require("./routes/index");
-var bookingsRouter = require("./routes/booking");
-var listBookingsRouter = require("./routes/listBookings");
-var registerRouter = require("./routes/auth");
+const indexRouter = require("./routes/index");
+const orderRouter = require("./routes/order");
+// const listorderRouter = require("./routes/listBookings");
+const registerRouter = require("./routes/auth");
+const productsRouter = require("./routes/products");
 
-var app = express();
+const app = express();
 const PORT = process.env.PORT || 7000;
 
 // view engine setup
@@ -29,9 +30,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/booking", bookingsRouter);
-app.use("/bookings", listBookingsRouter);
+app.use("/order", orderRouter);
+// app.use("/order-details", listorderRouter);
 app.use("/auth", registerRouter);
+app.use("/products", productsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

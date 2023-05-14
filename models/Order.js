@@ -1,21 +1,13 @@
 const mongoose = require("mongoose");
 
-const bookingSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema(
   {
-    name: {
+    user: {
       type: String,
       required: true,
     },
-    email: {
-      type: String,
-      required: true,
-    },
-    phoneNumber: {
-      type: Number,
-      required: true,
-    },
-    whatsappNumber: {
-      type: Number,
+    items: {
+      type: Array,
       required: true,
     },
     streetAddress: {
@@ -43,9 +35,9 @@ const bookingSchema = new mongoose.Schema(
 );
 
 // Define a pre-save middleware function to generate order ID
-bookingSchema.pre("save", async function (next) {
+orderSchema.pre("save", async function (next) {
   if (this.isNew && !this.orderId) {
-    const prefix = "AMA";
+    const prefix = "DEV-ORDER";
     const sequenceNumber = await this.constructor.countDocuments();
     const paddedSequenceNumber = (sequenceNumber + 1)
       .toString()
@@ -55,4 +47,4 @@ bookingSchema.pre("save", async function (next) {
   next();
 });
 
-module.exports = mongoose.model("order", bookingSchema);
+module.exports = mongoose.model("order", orderSchema);

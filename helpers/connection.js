@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
 dotenv.config();
-const dbName = "myproject";
 
 // Connect to MongoDB using Mongoose
 mongoose
